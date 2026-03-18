@@ -1,5 +1,4 @@
-﻿// -1 No other room, 2 Some other room, 3 No fucking idea
-Rooms Room0 = new Rooms { Name = "Kitchen", Description = "Wasd", North = -1, South = 2, East = -1, West = -1 };
+﻿Rooms Room0 = new Rooms { Name = "Kitchen", Description = "Wasd", North = -1, South = 2, East = -1, West = -1 };
 
 Rooms Room1 = new Rooms { Name = "Small Bedroom", Description = "Wasd", North= 1, South = 2, West = 3, East = 4 };
 Rooms Room2 = new Rooms { Name = "Main Hallway", Description = "Wasd", North = 1, South = 2, West = 3, East = 4 };
