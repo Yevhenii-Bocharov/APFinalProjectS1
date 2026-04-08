@@ -4,6 +4,7 @@ public class Room
     public string Name = string.Empty;
     public string Description = string.Empty;
     public int[] avaliableRooms = Array.Empty<int>();
+    public bool IsLocked = false;
     // public int North;
     // public int South;
     // public int East;
@@ -59,7 +60,7 @@ public class Blueprint
 
             // MAIN OFFICE
             new Room { Id = 5, Name = "Main Office", Description = "A locked administrative office.",
-                avaliableRooms=[0,6] },
+                avaliableRooms=[0,6], IsLocked=true },
 // North = 1, South = -1, East = 3, West = -3
 
             // CONFERENCE ROOM
