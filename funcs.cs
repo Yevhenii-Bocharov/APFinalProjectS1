@@ -63,4 +63,25 @@ class Funcs
         }
 
     }
+
+    public void AddItemToInventory(Player player, string item)
+    {
+        for (int i = 0; i < player.ItemArray.Length; i++)
+        {
+            if (string.IsNullOrEmpty(player.ItemArray[i]))
+            {
+                player.ItemArray[i] = item;
+                Console.WriteLine($"Added {item} to inventory.");
+                return;
+            }
+        }
+        Console.WriteLine("Current Inventory:");
+        foreach (var inventoryItem in player.ItemArray)
+        {
+            if (!string.IsNullOrEmpty(inventoryItem))
+            {
+                Console.WriteLine($"- {inventoryItem}");
+            }
+        }
+    }
 }
