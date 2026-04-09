@@ -10,7 +10,7 @@ class Program
         Funcs funcs = new Funcs();
         Player player = new Player
         {
-            Name = "William",
+            Name = "Patricia",
             CurrentRoomId = 0,
             ItemArray = new string[4]
         };
