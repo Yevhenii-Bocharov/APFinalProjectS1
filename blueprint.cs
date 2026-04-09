@@ -38,10 +38,10 @@ public class Blueprint
             new Room { Id = 4, Name = "Cell Hallway", Description = "A narrow hall lined with holding cells.",
                 avaliableRooms=[0,7,8,9] },
            
-            new Room { Id = 7, Name = "Cell 1", Description = "The first holding cell.",
+            new Room { Id = 7, Name = "Cell 1 (Top)", Description = "The first holding cell.",
                    avaliableRooms=[4]},
             
-            new Room { Id = 8, Name = "Cell 3 (Middle)", Description = "The middle holding cell.",
+            new Room { Id = 8, Name = "Cell 2 (Middle)", Description = "The middle holding cell.",
                   avaliableRooms=[4] },
     
             new Room { Id = 9, Name = "Cell 3 (Bottom)", Description = "The lower holding cell.",
