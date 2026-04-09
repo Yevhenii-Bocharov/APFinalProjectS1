@@ -1,9 +1,10 @@
 using System;
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 
 class Funcs
 {
-    // Pass the Player and the Array of Rooms
+    // MOVING
     public void WhereAmI(Player player, Room[] Map)
     {
         Console.WriteLine("");
@@ -21,30 +22,55 @@ class Funcs
         Console.WriteLine("Error: Your current location doesn't exist on the map.");
     }
 
-    public void WhereCanIGo(Player player, Room room, Room[] Map)
+
+
+public void WhereCanIGo(Player player, Room room, Room[] Map)
+{
+    Console.WriteLine("");
+    Console.WriteLine("From here, you can go to:");
+
+    int optionCount = 0;
+
+    for (int i = 0; i < room.avaliableRooms.Length; i++)
     {
-        Console.WriteLine("");
-        Console.WriteLine("From here, you can go to:");
-        for (int i = 0; i < room.avaliableRooms.Length; i++)
+        foreach (var possibleRoom in Map)
         {
-            foreach (var possibleRoom in Map)
+            if (room.avaliableRooms[i] == possibleRoom.Id)
             {
-                if (room.avaliableRooms[i] == possibleRoom.Id)
-                {
-                    // Console.WriteLine($"You can go to: {possibleRoom.Name}");
-                    Console.WriteLine($"Press {i} to go to: {possibleRoom.Name}");
-                    break;
-                }
+                Console.WriteLine($"Press {optionCount} to go to: {possibleRoom.Name}");
+                optionCount++;
+                break;
             }
-
         }
-        int userInput = int.Parse(Console.ReadLine()!);
-        Move(player, room.avaliableRooms[userInput], Map);
-
     }
+
+    Console.Write("Choose an option: ");
+
+    int userInput;
+
+    if (!int.TryParse(Console.ReadLine(), out userInput))
+    {
+        Console.Clear();
+        Console.WriteLine("Invalid input.");
+        WhereCanIGo(player,room,Map);
+        return;
+    }
+
+    if (userInput < 0 || userInput >= room.avaliableRooms.Length)
+    {
+        Console.Clear();
+        Console.WriteLine("That option doesn't exist.");
+        WhereCanIGo(player,room,Map);
+        return;
+    }
+
+    Move(player, room.avaliableRooms[userInput], Map);
+}
+
 
     public void Move(Player player, int roomId, Room[] Map)
     {
+        bool hasChanged = false;
         foreach (var room in Map)
         {
             if (room.Id == roomId)
@@ -57,13 +83,22 @@ class Funcs
                 }
                 player.CurrentRoomId = roomId;
                 Console.Clear();
+                hasChanged=true;
                 WhereAmI(player, Map);
-
                 return;
             }
         }
+        if (hasChanged==false)
+        {
+            Console.WriteLine("There is no room in that way");
+                
+            return;
+        }
 
     }
+
+
+// ITEM ARRAY 
 
     public void AddItemToInventory(Player player, string item)
     {
