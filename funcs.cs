@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 class Funcs
 {
@@ -82,6 +83,23 @@ class Funcs
             {
                 Console.WriteLine($"- {inventoryItem}");
             }
+        }
+    }
+
+
+
+
+
+
+
+
+    //Juandi's code do not touch or i will touch you ;)
+    public void ItemInRoom(Player player, Room[] Map, string[] ItemArray)
+    {
+        if (player.CurrentRoomId == 7)
+        {
+            Console.WriteLine("You searched the body of the guard");
+            ItemArray[0] = "Key";
         }
     }
 }
