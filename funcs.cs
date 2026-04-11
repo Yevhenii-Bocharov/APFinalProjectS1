@@ -1,7 +1,7 @@
 using System;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
-
+using System.Threading;
 class Funcs
 {
     // MOVING
@@ -98,7 +98,7 @@ public void WhereCanIGo(Player player, Room room, Room[] Map)
     }
 
 
-// ITEM ARRAY 
+// ITEM SYSTEM 
 
     public void AddItemToInventory(Player player, string item)
     {
@@ -122,18 +122,58 @@ public void WhereCanIGo(Player player, Room room, Room[] Map)
     }
 
     
-
-
-
-
-    public void Inspecting()
+//INVENTORY 
+ public void Look(Player player)
     {
-        Console.Write("Inspecting");
-        for (int i = 0; i < 3; i++)
+        Console.Clear();
+        Console.WriteLine("Inventory:");
+
+        string[] items = player.ItemArray;
+
+        BubbleSort(items);
+
+        bool hasItems = false;
+
+        foreach (string item in items)
         {
-            Console.Write(".");
-            Thread.Sleep(500);
+            if (!string.IsNullOrEmpty(item))
+            {
+                Console.WriteLine("- " + item);
+                hasItems = true;
+            }
+        }
+
+        if (!hasItems)
+        {
+            Console.WriteLine("Your inventory is empty.");
         }
     }
-    //i guant to kill myself
+
+
+//BUBBLE SORT FOR INVENTORY 
+    public void BubbleSort(string[] array)
+    {
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            for (int j = 0; j < array.Length - i - 1; j++)
+            {
+                if (string.Compare(array[j], array[j + 1]) > 0)
+                {
+                    string temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+    }
+    public void Inspecting()
+    {
+    Console.Write("Inspecting");
+    for (int i = 0; i < 3; i++)
+    {
+        Console.Write(".");
+        Thread.Sleep(500);
+    }
+    }
+
 }
