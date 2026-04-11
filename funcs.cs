@@ -121,20 +121,19 @@ public void WhereCanIGo(Player player, Room room, Room[] Map)
         }
     }
 
+    
 
 
 
 
-
-
-
-    //Juandi's code do not touch or i will touch you ;)
-    public void ItemInRoom(Player player, Room[] Map, string[] ItemArray)
+    public void Inspecting()
     {
-        if (player.CurrentRoomId == 7)
+        Console.Write("Inspecting");
+        for (int i = 0; i < 3; i++)
         {
-            Console.WriteLine("You searched the body of the guard");
-            ItemArray[0] = "Key";
+            Console.Write(".");
+            Thread.Sleep(500);
         }
     }
+    //i guant to kill myself
 }
