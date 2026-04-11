@@ -44,8 +44,8 @@ public void WhereCanIGo(Player player, Room room, Room[] Map)
         }
     }
 
-    Console.Write("Choose an option: ");
-
+    Console.WriteLine("Choose an option: ");
+    Console.Write(">");
     int userInput;
 
     if (!int.TryParse(Console.ReadLine(), out userInput))
