@@ -5,7 +5,7 @@ public class Room
     public string Description = string.Empty;
     public int[] avaliableRooms = Array.Empty<int>();
     public bool IsLocked = false;
-    public string[] ItemArray = Array.Empty<string>();
+
     public ActionOption[] ActionsArray = Array.Empty<ActionOption>();
 }
 
@@ -13,6 +13,7 @@ public class ActionOption
 {
     public string Title = string.Empty;
     public string Description = string.Empty;
+    public string[] ItemArray = Array.Empty<string>();
 }
 
 
@@ -33,11 +34,32 @@ public class Blueprint
                 avaliableRooms = [1,4,5,6],
                 ActionsArray = new ActionOption[]
                 {
-                    new ActionOption { Title = "Front Desk", Description = "Inspect the old reception desk." },
-                    new ActionOption { Title = "Bathroom Hallway", Description = "Go to the bathroom hallway." },
-                    new ActionOption { Title = "Cell Hallway", Description = "Enter the cell block corridor." },
-                    new ActionOption { Title = "Chief’s Office", Description = "Try accessing the locked office." },
-                    new ActionOption { Title = "Conference Room", Description = "Enter the meeting room." }
+                    new ActionOption
+                    {
+                        Title = "Inspect Front Desk",
+                        Description = "Search the old reception desk.",
+                        ItemArray = new string[] { }
+                    },
+                    new ActionOption
+                    {
+                        Title = "Go to Bathroom Hallway",
+                        Description = "Enter the bathroom section."
+                    },
+                    new ActionOption
+                    {
+                        Title = "Go to Cell Hallway",
+                        Description = "Walk toward the prison cells."
+                    },
+                    new ActionOption
+                    {
+                        Title = "Go to Chief’s Office",
+                        Description = "Try accessing the locked office."
+                    },
+                    new ActionOption
+                    {
+                        Title = "Go to Conference Room",
+                        Description = "Enter the meeting room."
+                    }
                 }
             },
 
@@ -63,11 +85,19 @@ public class Blueprint
                 Name = "Female Bathroom",
                 Description = "Women's restroom.",
                 avaliableRooms = [1],
-                ItemArray = ["screwdriver"],
                 ActionsArray = new ActionOption[]
                 {
-                    new ActionOption { Title = "Inspect Toolbox", Description = "Search the toolbox beside the sink." },
-                    new ActionOption { Title = "Leave Bathroom", Description = "Return to the hallway." }
+                    new ActionOption
+                    {
+                        Title = "Inspect Toolbox",
+                        Description = "Search the toolbox beside the sink.",
+                        ItemArray = new string[] { "screwdriver" }
+                    },
+                    new ActionOption
+                    {
+                        Title = "Leave Bathroom",
+                        Description = "Return to the hallway."
+                    }
                 }
             },
 
@@ -139,10 +169,14 @@ public class Blueprint
                 Name = "Cell 3 (Bottom)",
                 Description = "The lower holding cell.",
                 avaliableRooms = [4],
-                ItemArray = ["Keys"],
                 ActionsArray = new ActionOption[]
                 {
-                    new ActionOption { Title = "Check Body", Description = "Search the corpse." },
+                    new ActionOption
+                    {
+                        Title = "Check Body",
+                        Description = "Search the corpse.",
+                        ItemArray = new string[] { "Keys" }
+                    },
                     new ActionOption { Title = "Move Body", Description = "Inspect the body closely." },
                     new ActionOption { Title = "Return Through Hole", Description = "Go back to Cell 2." }
                 }
@@ -155,10 +189,13 @@ public class Blueprint
                 Name = "Conference Room",
                 Description = "A room for meetings and briefings.",
                 avaliableRooms = [0,5],
-                ItemArray = ["screwdriver"],
                 ActionsArray = new ActionOption[]
                 {
-                    new ActionOption { Title = "Take Flashlight", Description = "Pick up the flashlight." },
+                    new ActionOption
+                    {
+                        Title = "Take Flashlight",
+                        Description = "Pick up the flashlight."
+                    },
                     new ActionOption { Title = "Inspect Whiteboard", Description = "Examine the faded notes." },
                     new ActionOption { Title = "Interact with Vent", Description = "Check the vent on the wall." },
                     new ActionOption { Title = "Return to Main Room", Description = "Leave the conference room." }
@@ -173,7 +210,6 @@ public class Blueprint
                 Description = "A locked administrative office.",
                 avaliableRooms = [0,6],
                 IsLocked = true,
-                ItemArray = ["Gun"],
                 ActionsArray = new ActionOption[]
                 {
                     new ActionOption { Title = "Inspect Safe", Description = "Try opening the locked safe." },

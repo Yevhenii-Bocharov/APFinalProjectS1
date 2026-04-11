@@ -15,7 +15,7 @@ class Funcs
             {
                 Console.WriteLine($"You are in: {room.Name}");
                 Console.WriteLine(room.Description);
-                WhereCanIGo(player, room, Map);
+                WhatCanIDo(player, room, Map);
                 return;
             }
         }
@@ -24,48 +24,66 @@ class Funcs
 
 
 
-public void WhereCanIGo(Player player, Room room, Room[] Map)
-{
-    Console.WriteLine("");
-    Console.WriteLine("From here, you can go to:");
-
-    int optionCount = 0;
-
-    for (int i = 0; i < room.avaliableRooms.Length; i++)
+    public void WhatCanIDo(Player player, Room room, Room[] Map)
     {
-        foreach (var possibleRoom in Map)
+
+        Console.WriteLine("");
+        Console.WriteLine("From here, you can do:");
+
+        for (int i = 0; i < room.ActionsArray.Length; i++)
         {
-            if (room.avaliableRooms[i] == possibleRoom.Id)
+            Console.WriteLine($"Press {(char)('a' + i)} to: {room.ActionsArray[i].Title}");
+        }
+
+        Console.WriteLine("");
+        Console.WriteLine("From here, you can go to:");
+
+        int optionCount = 0;
+
+        for (int i = 0; i < room.avaliableRooms.Length; i++)
+        {
+            foreach (var possibleRoom in Map)
             {
-                Console.WriteLine($"Press {optionCount} to go to: {possibleRoom.Name}");
-                optionCount++;
-                break;
+                if (room.avaliableRooms[i] == possibleRoom.Id)
+                {
+                    Console.WriteLine($"Press {optionCount} to go to: {possibleRoom.Name}");
+                    optionCount++;
+                    break;
+                }
             }
         }
+
+        Console.WriteLine("Choose an option: ");
+        Console.Write(">");
+        string input = Console.ReadLine().ToLower()!;
+
+        if (int.TryParse(input, out int number))
+        {
+            // numeric input (room index / movement)
+            if (number < 0 || number >= room.avaliableRooms.Length)
+            {
+                Console.Clear();
+                Console.WriteLine("That option doesn't exist.");
+                WhatCanIDo(player, room, Map);
+                return;
+            }
+
+            Move(player, room.avaliableRooms[number], Map);
+        }
+        else if (input.Length == 1)
+        {
+            // char input (like E, A, B, etc.)
+            char command = input[0];
+
+            DoAction(command, player, room);
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Invalid input.");
+            WhatCanIDo(player, room, Map);
+        }
     }
-
-    Console.WriteLine("Choose an option: ");
-    Console.Write(">");
-    int userInput;
-
-    if (!int.TryParse(Console.ReadLine(), out userInput))
-    {
-        Console.Clear();
-        Console.WriteLine("Invalid input.");
-        WhereCanIGo(player,room,Map);
-        return;
-    }
-
-    if (userInput < 0 || userInput >= room.avaliableRooms.Length)
-    {
-        Console.Clear();
-        Console.WriteLine("That option doesn't exist.");
-        WhereCanIGo(player,room,Map);
-        return;
-    }
-
-    Move(player, room.avaliableRooms[userInput], Map);
-}
 
 
     public void Move(Player player, int roomId, Room[] Map)
@@ -83,15 +101,15 @@ public void WhereCanIGo(Player player, Room room, Room[] Map)
                 }
                 player.CurrentRoomId = roomId;
                 Console.Clear();
-                hasChanged=true;
+                hasChanged = true;
                 WhereAmI(player, Map);
                 return;
             }
         }
-        if (hasChanged==false)
+        if (hasChanged == false)
         {
             Console.WriteLine("There is no room in that way");
-                
+
             return;
         }
 
