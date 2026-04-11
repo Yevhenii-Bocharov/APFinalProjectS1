@@ -5,10 +5,6 @@ public class Room
     public string Description = string.Empty;
     public int[] avaliableRooms = Array.Empty<int>();
     public bool IsLocked = false;
-    // public int North;
-    // public int South;
-    // public int East;
-    // public int West;
 }
 
 public class Blueprint
