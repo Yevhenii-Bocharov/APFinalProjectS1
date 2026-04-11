@@ -52,7 +52,14 @@ class Funcs
                 }
             }
         }
+        InputByUser(player, Map, room);
 
+    }
+
+
+    public void InputByUser(Player player, Room[] Map, Room room)
+    {
+        Console.WriteLine("");
         Console.WriteLine("Choose an option: ");
         Console.Write(">");
         string input = Console.ReadLine().ToLower()!;
@@ -85,6 +92,19 @@ class Funcs
         }
     }
 
+    public void DoAction(char command, Player player, Room room)
+    {
+        int index = command - 'a';
+        ActionOption actionArray = room.ActionsArray[index];
+        Console.WriteLine(actionArray.Description);
+        if (actionArray.ItemArray.Length != 0)
+        {
+            foreach (var item in actionArray.ItemArray)
+            {
+                // addItemsToTheInventory(item)
+            }
+        }
+    }
 
     public void Move(Player player, int roomId, Room[] Map)
     {
@@ -116,7 +136,7 @@ class Funcs
     }
 
 
-// ITEM SYSTEM 
+    // ITEM SYSTEM 
 
     public void AddItemToInventory(Player player, string item)
     {
@@ -139,9 +159,9 @@ class Funcs
         }
     }
 
-    
-//INVENTORY 
- public void Look(Player player)
+
+    //INVENTORY 
+    public void Look(Player player)
     {
         Console.Clear();
         Console.WriteLine("Inventory:");
@@ -168,7 +188,7 @@ class Funcs
     }
 
 
-//BUBBLE SORT FOR INVENTORY 
+    //BUBBLE SORT FOR INVENTORY 
     public void BubbleSort(string[] array)
     {
         for (int i = 0; i < array.Length - 1; i++)
@@ -186,12 +206,12 @@ class Funcs
     }
     public void Inspecting()
     {
-    Console.Write("Inspecting");
-    for (int i = 0; i < 3; i++)
-    {
-        Console.Write(".");
-        Thread.Sleep(500);
-    }
+        Console.Write("Inspecting");
+        for (int i = 0; i < 3; i++)
+        {
+            Console.Write(".");
+            Thread.Sleep(500);
+        }
     }
 
 }

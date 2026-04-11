@@ -38,7 +38,6 @@ public class Blueprint
                     {
                         Title = "Inspect Front Desk",
                         Description = "Search the old reception desk.",
-                        ItemArray = new string[] { }
                     },
                     new ActionOption
                     {
