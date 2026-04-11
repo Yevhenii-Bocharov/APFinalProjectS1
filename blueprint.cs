@@ -5,6 +5,7 @@ public class Room
     public string Description = string.Empty;
     public int[] avaliableRooms = Array.Empty<int>();
     public bool IsLocked = false;
+  
 }
 
 public class Blueprint
