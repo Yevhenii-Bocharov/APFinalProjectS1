@@ -61,8 +61,9 @@ class Funcs
     {
         Console.WriteLine("");
         Console.WriteLine("Choose an option: ");
+        Console.WriteLine("Type i to check inventory:");
         Console.Write(">");
-        string input = Console.ReadLine().ToLower()!;
+        string input = Console.ReadLine()!.ToLower()!;
 
         if (int.TryParse(input, out int number))
         {
@@ -77,12 +78,18 @@ class Funcs
 
             Move(player, room.avaliableRooms[number], Map);
         }
-        else if (input.Length == 1)
+        else if (input == "i")
+        {
+            Look(player);
+            WhatCanIDo(player, room, Map);
+        }
+        else if (input.Length >= 1)
         {
             // char input (like E, A, B, etc.)
             char command = input[0];
 
             DoAction(command, player, room);
+            WhatCanIDo(player, room, Map);
         }
         else
         {
@@ -101,21 +108,24 @@ class Funcs
         {
             foreach (var item in actionArray.ItemArray)
             {
-                // addItemsToTheInventory(item)
+                AddItemToInventory(player, item);
+                return;
             }
+
         }
     }
 
     public void Move(Player player, int roomId, Room[] Map)
     {
         bool hasChanged = false;
+        CheckItemUnlocks(player, Map);
         foreach (var room in Map)
         {
             if (room.Id == roomId)
             {
                 if (room.IsLocked)
                 {
-                    Console.WriteLine($"The {room.Name} is locked. You cannot enter.");
+                    Console.WriteLine($"You cannot enter here.");
                     WhereAmI(player, Map);
                     return;
                 }
@@ -164,6 +174,7 @@ class Funcs
     public void Look(Player player)
     {
         Console.Clear();
+        Inspecting();
         Console.WriteLine("Inventory:");
 
         string[] items = player.ItemArray;
@@ -210,8 +221,37 @@ class Funcs
         for (int i = 0; i < 3; i++)
         {
             Console.Write(".");
-            Thread.Sleep(500);
+            Thread.Sleep(300);
+        }
+        Console.Clear();
+    }
+
+    public void CheckItemUnlocks(Player player, Room[] map)
+    {
+        foreach (string item in player.ItemArray)
+        {
+            if (string.IsNullOrEmpty(item)) continue;
+
+            switch (item.ToLower())
+            {
+                case "flashlight":
+                    foreach (var room in map)
+                        if (room.Id == 1) room.IsLocked = false;
+                    break;
+
+                case "screwdriver":
+                    foreach (var room in map)
+                        if (room.Id == 6) room.IsLocked = false;
+                    break;
+
+                case "keys":
+                    foreach (var room in map)
+                        if (room.Id == 5) room.IsLocked = false;
+                    break;
+            }
         }
     }
 
+
 }
+
