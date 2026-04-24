@@ -70,11 +70,6 @@ public class Blueprint
                         Title = "Inspect Toolbox",
                         Description = "Search the toolbox beside the sink.",
                         ItemArray = new string[] { "screwdriver" }
-                    },
-                    new ActionOption
-                    {
-                        Title = "Leave Bathroom",
-                        Description = "Return to the hallway."
                     }
                 }
             },
@@ -88,7 +83,6 @@ public class Blueprint
                 avaliableRooms = [1],
                 ActionsArray = new ActionOption[]
                 {
-                    new ActionOption { Title = "Use Flashlight", Description = "Light up the dark room." },
                     new ActionOption { Title = "Inspect Stalls", Description = "Look around the stalls." },
                 }
             },
@@ -102,10 +96,7 @@ public class Blueprint
                 avaliableRooms = [0,7,8],
                 ActionsArray = new ActionOption[]
                 {
-                    new ActionOption { Title = "wasd", Description = "." },
-                    new ActionOption { Title = "wasd1", Description = ".." },
-                    new ActionOption { Title = "wasd2", Description = "..." },
-                    new ActionOption { Title = "wasd3", Description = "...." }
+
                 }
             },
 
