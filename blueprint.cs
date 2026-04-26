@@ -35,7 +35,11 @@ public class Blueprint
                     new ActionOption
                     {
                         Title = "Inspect Front Desk",
+<<<<<<< HEAD
                         Description = "The desk is covered in a pile of old papers.\nYou find an attendance book, a magazine, and a useless computer.",
+=======
+                        Description = "Search the old reception desk.",
+>>>>>>> feature/quit-findme
                     }
                 }
             },
@@ -79,11 +83,15 @@ public class Blueprint
                 IsLocked = true,
                 ActionsArray = new ActionOption[]
                 {
+<<<<<<< HEAD
                     new ActionOption
                     {
                         Title = "Inspect Stalls",
                         Description = "The walls are covered in random graffiti, scratches, and faded markings.\nSome of it is just names, symbols, or unfinished thoughts.\nYou can make out fragments:\n\"don't look back\", \"it's still here\", \"1548\", \"help\"\nAll of it seems meaningless."
                     }
+=======
+                    new ActionOption { Title = "Inspect Stalls", Description = "Look around the stalls." }
+>>>>>>> feature/quit-findme
                 }
             },
 
@@ -106,6 +114,7 @@ public class Blueprint
                 avaliableRooms = [4],
                 ActionsArray = new ActionOption[]
                 {
+<<<<<<< HEAD
                     new ActionOption
                     {
                         Title = "Inspect Bed",
@@ -116,6 +125,10 @@ public class Blueprint
                         Title = "Inspect Walls",
                         Description = "The scratches feel recent... but that doesn't make sense."
                     }
+=======
+                    new ActionOption { Title = "Inspect Bed", Description = "Search the mattress." },
+                    new ActionOption { Title = "Inspect Walls", Description = "Look at the scratch marks." }
+>>>>>>> feature/quit-findme
                 }
             },
 
@@ -128,6 +141,7 @@ public class Blueprint
                 avaliableRooms = [4],
                 ActionsArray = new ActionOption[]
                 {
+<<<<<<< HEAD
                     new ActionOption
                     {
                         Title = "Inspect Leak",
@@ -138,6 +152,10 @@ public class Blueprint
                         Title = "Crawl Through Hole",
                         Description = "The concrete scrapes against your arms as you squeeze through. The space is suffocatingly tight.\nFor a moment, you feel stuck... then you push through and drop onto the other side."
                     }
+=======
+                    new ActionOption { Title = "Inspect Leak", Description = "Check the dripping water." },
+                    new ActionOption { Title = "Crawl Through Hole", Description = "Pass into the next cell." }
+>>>>>>> feature/quit-findme
                 }
             },
 
@@ -156,11 +174,15 @@ public class Blueprint
                         Description = "You search the pockets and find a Keychain.\nA metal ring with one key and a cute cat charm.",
                         ItemArray = new string[] { "Keys" }
                     },
+<<<<<<< HEAD
                     new ActionOption
                     {
                         Title = "Move Body",
                         Description = "The corpse shifts too easily. The skin pulls slightly as it moves.\nAnd worms crawl around."
                     }
+=======
+                    new ActionOption { Title = "Move Body", Description = "Inspect the body closely." }
+>>>>>>> feature/quit-findme
                 }
             },
 
@@ -176,6 +198,7 @@ public class Blueprint
                     new ActionOption
                     {
                         Title = "Take Flashlight",
+<<<<<<< HEAD
                         Description = "You pick it up. Weak, but usable.",
                         ItemArray = new string[] { "Flashlight" }
                     },
@@ -189,6 +212,13 @@ public class Blueprint
                         Title = "Interact with Vent",
                         Description = "The screws won't budge. You need a tool."
                     }
+=======
+                        Description = "Pick up the flashlight.",
+                        ItemArray = new string[] { "Flashlight" }
+                    },
+                    new ActionOption { Title = "Inspect Whiteboard", Description = "Examine the faded notes." },
+                    new ActionOption { Title = "Interact with Vent", Description = "Check the vent on the wall." }
+>>>>>>> feature/quit-findme
                 }
             },
 
@@ -197,6 +227,7 @@ public class Blueprint
             {
                 Id = 5,
                 Name = "Chief's Office",
+<<<<<<< HEAD
                 Description = "You used the screwdriver to unscrew the vent and crawled into the darkness.\nThe door is blocked by debris, but a huge hole in the ceiling lets in natural light.\nInside, a desk is buried under files. Behind the desk sits a Safe with a four-digit lock.",
                 avaliableRooms = [6],
                 IsLocked = true,
@@ -207,6 +238,14 @@ public class Blueprint
                         Title = "Inspect Safe",
                         Description = "A four-digit lock stares back at you. You'll need the right code."
                     }
+=======
+                Description = "A locked administrative office.",
+                avaliableRooms = [0,6],
+                IsLocked = true,
+                ActionsArray = new ActionOption[]
+                {
+                    new ActionOption { Title = "Inspect Safe", Description = "Try opening the locked safe." }
+>>>>>>> feature/quit-findme
                 }
             }
         };

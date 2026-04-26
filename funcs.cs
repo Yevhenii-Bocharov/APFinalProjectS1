@@ -26,7 +26,7 @@ class Funcs
 
     public void WhatCanIDo(Player player, Room room, Room[] Map)
     {
-
+        Console.Clear();
         Console.WriteLine("");
         Console.WriteLine("From here, you can do:");
 
@@ -52,10 +52,18 @@ class Funcs
                 }
             }
         }
+        InputByUser(player, Map, room);
 
+    }
+
+
+    public void InputByUser(Player player, Room[] Map, Room room)
+    {
+        Console.WriteLine("");
         Console.WriteLine("Choose an option: ");
+        Console.WriteLine("Type i to check inventory | Type quit to exit | Type findme to see your location :");
         Console.Write(">");
-        string input = Console.ReadLine().ToLower()!;
+        string input = Console.ReadLine()!.ToLower()!;
 
         if (int.TryParse(input, out int number))
         {
@@ -70,13 +78,48 @@ class Funcs
 
             Move(player, room.avaliableRooms[number], Map);
         }
-        else if (input.Length == 1)
+        else if (input == "i")
         {
-            // char input (like E, A, B, etc.)
-            char command = input[0];
-
-            DoAction(command, player, room);
+            Look(player);
+            WhatCanIDo(player, room, Map);
         }
+        //TO QUIT THE GAME!
+         else if (input == "quit" || input == "exit")
+        {
+            Console.Clear();
+            Console.WriteLine("Thanks for playing. Goodbye.");
+            Environment.Exit(0);
+        }
+        //TO FIND THE USER 
+        else if (input == "findme")
+            {
+                Console.Clear();
+                Console.WriteLine($"You are in: {room.Name}");
+                Console.WriteLine("");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                WhatCanIDo(player, room, Map);
+            }
+
+        else if (input.Length >= 1)
+            {
+                char command = input[0];
+                int index = command - 'a';
+
+                if (index < 0 || index >= room.ActionsArray.Length)
+                {
+                    Console.Clear();
+                    Console.WriteLine("That action doesn't exist.");
+                    Console.WriteLine("");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    WhatCanIDo(player, room, Map);
+                    return;
+                }
+
+                DoAction(command, player, room);
+                WhatCanIDo(player, room, Map);
+            }
         else
         {
             Console.Clear();
@@ -85,17 +128,33 @@ class Funcs
         }
     }
 
+    public void DoAction(char command, Player player, Room room)
+    {
+        int index = command - 'a';
+        ActionOption actionArray = room.ActionsArray[index];
+        Console.WriteLine(actionArray.Description);
+        if (actionArray.ItemArray.Length != 0)
+        {
+            foreach (var item in actionArray.ItemArray)
+            {
+                AddItemToInventory(player, item);
+                return;
+            }
+
+        }
+    }
 
     public void Move(Player player, int roomId, Room[] Map)
     {
         bool hasChanged = false;
+        CheckItemUnlocks(player, Map);
         foreach (var room in Map)
         {
             if (room.Id == roomId)
             {
                 if (room.IsLocked)
                 {
-                    Console.WriteLine($"The {room.Name} is locked. You cannot enter.");
+                    Console.WriteLine($"You cannot enter here.");
                     WhereAmI(player, Map);
                     return;
                 }
@@ -116,7 +175,7 @@ class Funcs
     }
 
 
-// ITEM SYSTEM 
+    // ITEM SYSTEM 
 
     public void AddItemToInventory(Player player, string item)
     {
@@ -139,11 +198,12 @@ class Funcs
         }
     }
 
-    
-//INVENTORY 
- public void Look(Player player)
+
+    //INVENTORY 
+    public void Look(Player player)
     {
         Console.Clear();
+        Inspecting();
         Console.WriteLine("Inventory:");
 
         string[] items = player.ItemArray;
@@ -165,10 +225,14 @@ class Funcs
         {
             Console.WriteLine("Your inventory is empty.");
         }
+        Console.WriteLine("");
+        Console.WriteLine("Press any key to continue..."); // <- esto
+        Console.ReadKey();
+
     }
 
 
-//BUBBLE SORT FOR INVENTORY 
+    //BUBBLE SORT FOR INVENTORY 
     public void BubbleSort(string[] array)
     {
         for (int i = 0; i < array.Length - 1; i++)
@@ -186,12 +250,40 @@ class Funcs
     }
     public void Inspecting()
     {
-    Console.Write("Inspecting");
-    for (int i = 0; i < 3; i++)
+        Console.Write("Inspecting");
+        for (int i = 0; i < 3; i++)
+        {
+            Console.Write(".");
+            Thread.Sleep(300);
+        }
+        
+    }
+
+    public void CheckItemUnlocks(Player player, Room[] map)
     {
-        Console.Write(".");
-        Thread.Sleep(500);
+        foreach (string item in player.ItemArray)
+        {
+            if (string.IsNullOrEmpty(item)) continue;
+
+            switch (item.ToLower())
+            {
+                case "flashlight":
+                    foreach (var room in map)
+                        if (room.Id == 1) room.IsLocked = false;
+                    break;
+
+                case "screwdriver":
+                    foreach (var room in map)
+                        if (room.Id == 6) room.IsLocked = false;
+                    break;
+
+                case "keys":
+                    foreach (var room in map)
+                        if (room.Id == 5) room.IsLocked = false;
+                    break;
+            }
+        }
     }
-    }
+
 
 }
