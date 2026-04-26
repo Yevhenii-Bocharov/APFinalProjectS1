@@ -5,7 +5,7 @@ class Program
 {
     static void Main()
     {
-        // Initialize the game components
+        // Initialize the game components, player and prompt 
         Blueprint blueprint = new Blueprint();
         Funcs funcs = new Funcs();
         Player player = new Player
