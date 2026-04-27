@@ -6,32 +6,32 @@ class Funcs
 {
     // MOVING
     public void WhereAmI(Player player, Room[] Map)
-{
-    Console.Clear();
-    Console.WriteLine("");
-
-    foreach (var room in Map)
     {
-        if (player.CurrentRoomId == room.Id)
+        Console.Clear();
+        Console.WriteLine("");
+
+        foreach (var room in Map)
         {
-            Console.WriteLine($"You are in: {room.Name}");
-            Console.WriteLine("");
-            Console.WriteLine(room.Description);
-            Console.WriteLine("");
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();                              
-            WhatCanIDo(player, room, Map);
-            return;
+            if (player.CurrentRoomId == room.Id)
+            {
+                Console.WriteLine($"You are in: {room.Name}");
+                Console.WriteLine("");
+                Console.WriteLine(room.Description);
+                Console.WriteLine("");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                WhatCanIDo(player, room, Map);
+                return;
+            }
         }
+        Console.WriteLine("Error: Your current location doesn't exist on the map.");
     }
-    Console.WriteLine("Error: Your current location doesn't exist on the map.");
-}
 
 
 
     public void WhatCanIDo(Player player, Room room, Room[] Map)
     {
-        
+
         Console.WriteLine("");
         Console.WriteLine("From here, you can do:");
 
@@ -89,7 +89,7 @@ class Funcs
             WhatCanIDo(player, room, Map);
         }
         //TO QUIT THE GAME!
-         else if (input == "quit" || input == "exit")
+        else if (input == "quit" || input == "exit")
         {
             Console.Clear();
             Console.WriteLine("Thanks for playing. Goodbye.");
@@ -97,34 +97,34 @@ class Funcs
         }
         //TO FIND THE USER 
         else if (input == "findme")
+        {
+            Console.Clear();
+            Console.WriteLine($"You are in: {room.Name}");
+            Console.WriteLine("");
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            WhatCanIDo(player, room, Map);
+        }
+
+        else if (input.Length >= 1)
+        {
+            char command = input[0];
+            int index = command - 'a';
+
+            if (index < 0 || index >= room.ActionsArray.Length)
             {
                 Console.Clear();
-                Console.WriteLine($"You are in: {room.Name}");
+                Console.WriteLine("That action doesn't exist.");
                 Console.WriteLine("");
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 WhatCanIDo(player, room, Map);
+                return;
             }
 
-        else if (input.Length >= 1)
-            {
-                char command = input[0];
-                int index = command - 'a';
-
-                if (index < 0 || index >= room.ActionsArray.Length)
-                {
-                    Console.Clear();
-                    Console.WriteLine("That action doesn't exist.");
-                    Console.WriteLine("");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
-                    WhatCanIDo(player, room, Map);
-                    return;
-                }
-
-                DoAction(command, player, room, Map);
-                WhatCanIDo(player, room, Map);
-            }
+            DoAction(command, player, room, Map);
+            WhatCanIDo(player, room, Map);
+        }
         else
         {
             Console.Clear();
@@ -225,11 +225,11 @@ class Funcs
             {
                 Console.WriteLine("You unscrew the cover. It drops with a loud clang.\nYou crawl into the darkness...");
                 foreach (var r in Map)
-                        if (r.Id == 5) r.IsLocked = false;                   
-                         Console.WriteLine("\nPress any key to continue...");
+                    if (r.Id == 5) r.IsLocked = false;
+                Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
-                player.CurrentRoomId = 5; 
-                 WhereAmI(player, Map);
+                player.CurrentRoomId = 5;
+                WhereAmI(player, Map);
                 return;
             }
 
@@ -258,80 +258,89 @@ class Funcs
     }
 
     public void Move(Player player, int roomId, Room[] Map)
-{
-    CheckItemUnlocks(player, Map);
-    foreach (var room in Map)
     {
-        if (room.Id == roomId) 
+        CheckItemUnlocks(player, Map);
+        foreach (var room in Map)
         {
-            if (room.IsLocked)
+            if (room.Id == roomId)
             {
-                Console.Clear();
-                switch (room.Id)
+                if (player.CurrentRoomId == 0 && roomId == 5)
                 {
-                    case 1:
-                        Console.WriteLine("The hallway is pitch black. You can't see anything.\nYou need a light source to go further.");
-                        break;
-                    case 3:
-                        Console.WriteLine("The room is completely dark. You can't see anything.\nYou need a light source.");
-                        break;
-                    case 5:
-                        Console.WriteLine("The door to the Chief's Office is sealed shut.\nThere must be another way in.");
-                        break;
-                    case 6:
-                        Console.WriteLine("The door is locked. You need a key to get in.");
-                        break;
-                    case 9:
-                        Console.WriteLine("The cell is locked. There must be another way in.");
-                        break;
-
-   
-                    default:
-                        Console.WriteLine($"The {room.Name} is locked. You cannot enter.");
-                        break;
+                    Console.Clear();
+                    Console.WriteLine("The door to the Chief's Office is sealed shut.\nThere must be another way in.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    WhereAmI(player, Map);
+                    return;
                 }
-                Console.WriteLine("\nPress any key to continue...");
-                Console.ReadKey();
+                if (room.IsLocked)
+                {
+                    Console.Clear();
+                    switch (room.Id)
+                    {
+                        case 1:
+                            Console.WriteLine("The hallway is pitch black. You can't see anything.\nYou need a light source to go further.");
+                            break;
+                        case 3:
+                            Console.WriteLine("The room is completely dark. You can't see anything.\nYou need a light source.");
+                            break;
+                        case 5:
+                            Console.WriteLine("The door to the Chief's Office is sealed shut.\nThere must be another way in.");
+                            break;
+                        case 6:
+                            Console.WriteLine("The door is locked. You need a key to get in.");
+                            break;
+                        case 9:
+                            Console.WriteLine("The cell is locked. There must be another way in.");
+                            break;
+
+
+                        default:
+                            Console.WriteLine($"The {room.Name} is locked. You cannot enter.");
+                            break;
+                    }
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    WhereAmI(player, Map);
+                    return;
+                }
+
+                player.CurrentRoomId = roomId;
+                Console.Clear();
                 WhereAmI(player, Map);
                 return;
             }
-
-            player.CurrentRoomId = roomId;
-            Console.Clear();
-            WhereAmI(player, Map);
-            return;
         }
+        Console.WriteLine("There is no room in that way");
     }
-    Console.WriteLine("There is no room in that way");
-}
 
 
     // ITEM SYSTEM 
-        public void AddItemToInventory(Player player, string item)
+    public void AddItemToInventory(Player player, string item)
+    {
+
+        foreach (var i in player.ItemArray)
         {
-
-            foreach (var i in player.ItemArray)
+            if (!string.IsNullOrEmpty(i) && i.ToLower() == item.ToLower())
             {
-                if (!string.IsNullOrEmpty(i) && i.ToLower() == item.ToLower())
-                {
-                    Console.WriteLine($"You already have the {item}.");
-                    return;
-                }
+                Console.WriteLine($"You already have the {item}.");
+                return;
             }
-
-            for (int i = 0; i < player.ItemArray.Length; i++)
-            {
-                if (string.IsNullOrEmpty(player.ItemArray[i]))
-                {
-                    player.ItemArray[i] = item;
-                    Console.WriteLine($"Added {item} to inventory.");
-                    return;
-                }
-            }
-
-            
-            Console.WriteLine("Your inventory is full. You can't carry anything else.");
         }
+
+        for (int i = 0; i < player.ItemArray.Length; i++)
+        {
+            if (string.IsNullOrEmpty(player.ItemArray[i]))
+            {
+                player.ItemArray[i] = item;
+                Console.WriteLine($"Added {item} to inventory.");
+                return;
+            }
+        }
+
+
+        Console.WriteLine("Your inventory is full. You can't carry anything else.");
+    }
 
 
     //INVENTORY 
@@ -339,7 +348,7 @@ class Funcs
     {
         Console.Clear();
         Inspecting();
-        
+
         Console.WriteLine("Inventory:");
 
         string[] items = player.ItemArray;
@@ -362,7 +371,7 @@ class Funcs
             Console.WriteLine("Your inventory is empty.");
         }
         Console.WriteLine("");
-        Console.WriteLine("Press any key to continue..."); 
+        Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
 
     }
