@@ -339,6 +339,7 @@ class Funcs
     {
         Console.Clear();
         Inspecting();
+        
         Console.WriteLine("Inventory:");
 
         string[] items = player.ItemArray;
@@ -391,7 +392,7 @@ class Funcs
             Console.Write(".");
             Thread.Sleep(300);
         }
-        
+        Console.Clear();
     }
 
     public void CheckItemUnlocks(Player player, Room[] map)
