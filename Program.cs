@@ -16,7 +16,7 @@ class Program
         };
         Console.WriteLine("");
         Console.WriteLine("You are the last person alive after an atomic bomb killed all of humanity.");
-        Console.WriteLine("After days of wandering through ruins and corpses,");
+        Console.WriteLine("After days of wandering through ruins and corpses in a smal town ,");
         Console.WriteLine("you finally reach a police station.");
         Console.WriteLine(" ");
         Console.WriteLine("This is your last hope of finding anything useful or meaningful in this empty world.");
